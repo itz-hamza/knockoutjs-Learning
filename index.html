@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="MainPage">
+        <div class="heading">
+            <h1>Random User Viewer</h1>
+        </div>
+
+        <div class="welcomeMessage" data-bind="ifnot: isDataFetched">
+            <p>Welcome! Click the button to load the user!</p>
+        </div>
+
+        <!--ko if: isDataFetched -->
+        <div class="dataDisplay" data-bind="component: {
+            name : 'bioData',
+            params : {fullName : fullName, email : email, gender: gender, location : location, phone: phone, picture:picture}
+        } ">
+        </div>
+        <!--/ko -->
+
+        <div class="buttonSection">
+            <div data-bind="component : { 
+            name :  'buttonComponent', 
+            params : {onClickFunction : fetchData, text : 'Fetch User'} }">
+            </div>
+
+            <!--ko if: isDataFetched -->
+            <div data-bind="component : { 
+            name :  'buttonComponent', 
+            params : {onClickFunction : addToFavourites ,text : 'Add to favourites'} }">
+            </div>
+            <!--/ko -->
+        </div>
+
+        <div data-bind="foreach: favourites">
+            <p data-bind="text: fullName"></p>
+        </div>
+
+    </div>
+
+
+    <script src="bower_components/knockout/dist/knockout.js"></script>
+    <script src="buttonComponent.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
