@@ -10,7 +10,8 @@
 
 <body>
 
-    <div class="MainPage">
+
+    <div class="MainPage" data-bind="visible: !showFavourites()">
         <div class="heading">
             <h1>Random User Viewer</h1>
         </div>
@@ -39,12 +40,34 @@
             params : {onClickFunction : addToFavourites ,text : 'Add to favourites'} }">
             </div>
             <!--/ko -->
+
+            <!--ko if: favourites().length > 0-->
+            <div data-bind="component : { 
+            name :  'buttonComponent', 
+            params : {onClickFunction : clickShowFavourites, text : 'Show Favourites'} }">
+            </div>
+            <!--/ko -->
         </div>
 
-        <div data-bind="foreach: favourites">
-            <p data-bind="text: fullName"></p>
+    </div>
+
+    <div class="favouritesPage" data-bind="visible:showFavourites() ">
+        <div class="favouritesCardsContainer">
+
+            <!-- ko foreach: favourites-->
+            <div class="dataDisplay" data-bind="component: {
+            name : 'bioData',
+            params : {fullName : fullName, email : email, gender: gender, location : location, phone: phone, picture:picture}
+        } ">
+            </div>
+            <!--/ko-->
         </div>
 
+
+        <div class="ClickShowMainPageButton" data-bind="component : { 
+            name :  'buttonComponent', 
+            params : {onClickFunction : clickShowMainPage ,text : 'Show main page'} }">
+        </div>
     </div>
 
 

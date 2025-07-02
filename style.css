@@ -17,7 +17,8 @@
     flex-direction: row;
     width: 20%;
     justify-content: space-between;
-    
+    flex-wrap: wrap;
+    align-items: space-between;
 }
 
 /* .dataDisplay{
@@ -25,3 +26,24 @@
     flex-direction: column;
     align-items: center;
 } */
+
+.favouritesPage {
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+    /* padding: 10%; */
+}
+
+.favouritesCardsContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex: 1 1 auto;
+}
+
+.ClickShowMainPageButton {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}

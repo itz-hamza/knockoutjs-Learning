@@ -1,20 +1,20 @@
 ko.components.register('buttonComponent', {
 
-    viewModel: function(params) {
-    this.onClickFunction = params.onClickFunction;
-    this.text = params.text;
+    viewModel: function (params) {
+        this.onClickFunction = params.onClickFunction;
+        this.text = params.text;
     },
 
     template:
         `    <div class="fetchUserButton">
                 <button type="button" data-bind="click: onClickFunction, text: text" ></button>  
             </div>  `
-        
+
 });
 
-ko.components.register('bioData',{
+ko.components.register('bioData', {
 
-    viewModel: function(params){
+    viewModel: function (params) {
         this.fullName = params.fullName;
         this.email = params.email;
         this.gender = params.gender;
@@ -22,7 +22,7 @@ ko.components.register('bioData',{
         this.phone = params.phone;
         this.picture = params.picture;
     },
-    template : 
+    template:
         `
             <p data-bind ="text :fullName"></p>
             <p data-bind="text: email"></p>
@@ -65,8 +65,8 @@ function AppViewModel() {
         }
         return ""; // Default when not yet loaded
     });
-    
-    self.gender = ko.computed(function(){
+
+    self.gender = ko.computed(function () {
         const data = self.fetchedData();
         if (data) {
             return data.gender
@@ -74,7 +74,7 @@ function AppViewModel() {
         return ""; // Default when not yet loaded
     })
 
-    self.location = ko.computed(function(){
+    self.location = ko.computed(function () {
         const data = self.fetchedData();
         if (data) {
             return data.location.city + ", " + data.location.country + ", " + data.location.state;
@@ -82,7 +82,7 @@ function AppViewModel() {
         return ""; // Default when not yet loaded
     })
 
-    self.phone = ko.computed(function(){
+    self.phone = ko.computed(function () {
         const data = self.fetchedData();
         if (data) {
             return data.phone;
@@ -97,7 +97,7 @@ function AppViewModel() {
         }
         return ""; // Default when not yet loaded
     });
-    
+
 
     self.fetchData = function () {
         console.log('Fetching data...');
@@ -117,19 +117,27 @@ function AppViewModel() {
 
     self.favourites = ko.observableArray([]);
 
-    self.addToFavourites = function() {
-    // Create a new FavouriteUser from current computed observables
-    const fav = new FavouriteUser(
-        self.fullName(),
-        self.email(),
-        self.gender(),
-        self.location(),
-        self.phone(),
-        self.picture()
-    );
-    self.favourites.push(fav);
-};
+    self.addToFavourites = function () {
+        // Create a new FavouriteUser from current computed observables
+        const fav = new FavouriteUser(
+            self.fullName(),
+            self.email(),
+            self.gender(),
+            self.location(),
+            self.phone(),
+            self.picture()
+        );
+        self.favourites.push(fav);
+    };
 
+    self.showFavourites = ko.observable(false);
+
+    self.clickShowFavourites = function () {
+        self.showFavourites(true);
+    }
+    self.clickShowMainPage = function () {
+        self.showFavourites(false);
+    }
 
 
 }
